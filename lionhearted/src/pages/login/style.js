@@ -46,7 +46,7 @@ const useStyles = makeStyles(theme => ({
     }
   },
   info: {
-    marginTop: "2rem",
+    marginTop: "10vh",
     boxShadow: "0 0 0 4px #fff",
   },
   moveButt: {

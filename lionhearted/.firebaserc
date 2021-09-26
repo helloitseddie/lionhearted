@@ -1,5 +1,7 @@
 {
   "projects": {
-    "default": "lionhearted-327104"
-  }
+    "default": "lionhearted-327104",
+    "dev": "lionhearted-327104"
+  },
+  "targets": {}
 }

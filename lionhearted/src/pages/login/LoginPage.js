@@ -51,7 +51,11 @@ const LoginPage = () => {
   }
 
   useEffect(() => {
-    setWidth((gridRef.current.offsetWidth) - 250);
+    if (windowSize.width > 700) {
+      setWidth((gridRef.current.offsetWidth) - 250);
+    } else {
+      setWidth((gridRef.current.offsetWidth) - 50);
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [windowSize]);
 
@@ -78,7 +82,7 @@ const LoginPage = () => {
         {pic === 1 &&
           <>
             <Grid item className={classes.container}>
-              <img src={pictures[0]} alt="" className={classes.info} width={width}/>
+              <img src={pictures[0]} alt="" className={classes.info} width={width} height="700rem"/>
               <Grid item className={classes.container} style={{textAlign:"center"}}>
                 <Button className={classes.moveButt} onClick={handleSubmit}>Got it!</Button>
               </Grid>
@@ -88,7 +92,7 @@ const LoginPage = () => {
         {pic === 2 &&
           <>
             <Grid item className={classes.container}>
-              <img src={pictures[1]} alt="" className={classes.info} width={width}/>
+              <img src={pictures[1]} alt="" className={classes.info} width={width}  height="700rem"/>
               <Grid item className={classes.container} style={{textAlign:"center"}}>
                 <Link to={"/"}>
                   <Button className={classes.moveButt} onClick={handleFinal}>Enter</Button>

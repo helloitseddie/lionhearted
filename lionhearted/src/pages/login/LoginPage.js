@@ -1,37 +1,15 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState } from 'react';
 
 import { useDispatch } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { setUser } from '../../actions/user/UserActions';
 
-import { Grid, TextField, Button } from '@material-ui/core';
+import { Grid, TextField, Button, Paper, Box } from '@material-ui/core';
 
 import useStyles from './style';
 import lionlogo from './helpers/lionlogo.png';
 import coralSafari from './helpers/coralsafari.png';
-import infoD1 from './helpers/infoD1.png';
-import infoD2 from './helpers/infoD2.png';
-import infoM1 from './helpers/infoM1.png';
-import infoM2 from './helpers/infoM2.png';
-
-const useWindowSize = () => {
-  const [windowSize, setWindowSize] = useState({
-    width: undefined,
-    height: undefined,
-  });
-  useEffect(() => {
-    function handleResize() {
-      setWindowSize({
-        width: window.innerWidth,
-        height: window.innerHeight,
-      });
-    }
-    window.addEventListener("resize", handleResize);
-    handleResize();
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-  return windowSize;
-}
+import loginJson from './helpers/login.json';
 
 const LoginPage = () => {
   const classes  = useStyles();
@@ -41,27 +19,9 @@ const LoginPage = () => {
 
   const [pic, setPic] = useState(0);
 
-  const [width, setWidth] = useState(null);
-  const windowSize = useWindowSize();
-  const gridRef = useRef(null);
-
-  let pictures = [infoD1, infoD2];
-  if (windowSize.width < 700) {
-    pictures = [infoM1,infoM2];
-  }
-
-  useEffect(() => {
-    if (windowSize.width > 700) {
-      setWidth((gridRef.current.offsetWidth) - 250);
-    } else {
-      setWidth((gridRef.current.offsetWidth) - 50);
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [windowSize]);
-
   const handleChange = (value) => {
     setName(value);
-    if (value.length < 5) {
+    if (value.length <= 3) {
       setDisabled(true);
     } else {
       setDisabled(false);
@@ -78,49 +38,59 @@ const LoginPage = () => {
 
   return (
     <>
-      <Grid ref={gridRef} container spacing={0} direction="column" justifyContent="center" alignItems="center" className={classes.bg}>
         {pic === 1 &&
           <>
-            <Grid item className={classes.container}>
-              <img src={pictures[0]} alt="" className={classes.info} width={width} height="700rem"/>
-              <Grid item className={classes.container} style={{textAlign:"center"}}>
-                <Button className={classes.moveButt} onClick={handleSubmit}>Got it!</Button>
-              </Grid>
-            </Grid>
-          </>
-        }
-        {pic === 2 &&
-          <>
-            <Grid item className={classes.container}>
-              <img src={pictures[1]} alt="" className={classes.info} width={width}  height="700rem"/>
-              <Grid item className={classes.container} style={{textAlign:"center"}}>
+            <Grid container spacing={0} justifyContent="center" alignItems="stretch" className={classes.bg}>
+              <Paper variant="outlined" className={classes.articleContainer} style={{textAlign: "center"}}>
+                <Box className={classes.headingBox}>
+                  <h3 className={classes.head}>The Coral Safari</h3>
+                </Box>
+                <Paper variant="outlined" style={{width: '75%', marginLeft: '12.5%'}}>
+                </Paper>
+                <Box className={classes.headingBox}>
+                  <h2 className={classes.subHead}>Thank you for helping us save our reefs</h2>
+                </Box>
+                <p className={classes.body}>
+                  {loginJson.line1}
+                </p>
+                <p className={classes.body}>
+                  {loginJson.line3}
+                </p>
+                <p className={classes.body}>
+                  {loginJson.line2}
+                </p>
+                <Box className={classes.headingBox}>
+                  <h2 className={classes.subHead}>Start off by tagging a lionfish</h2>
+                </Box>
                 <Link to={"/"}>
-                  <Button className={classes.moveButt} onClick={handleFinal}>Enter</Button>
+                  <Button style={{marginBottom: "2rem"}} variant="outlined" className={classes.moveButt} onClick={handleFinal}>Enter</Button>
                 </Link>
-              </Grid>
+              </Paper>
             </Grid>
           </>
         }
-        {pic === 0 && <div>
-          <Grid item className={classes.container}>
-            <img src={lionlogo} alt="" className={classes.logo}/>
-          </Grid>
-          <Grid item className={classes.container}>
-            <img src={coralSafari} alt="" className={classes.coralWords}/>
-          </Grid>
-          <div className={classes.instructions}>
-            Please enter your name below. It will be used to create tags and will be visible to the public.
-          </div>
-          <Grid item className={classes.container}>
-            <div className={classes.nameDiv}>
-              <TextField label="Your Name" name="name" id="name" variant='outlined' fullWidth className={classes.loginBox} onChange={e => handleChange(e.target.value)}/>
+        {pic === 0 &&
+        <Grid container spacing={0} direction="column" justifyContent="center" alignItems="center" className={classes.bg}>
+          <div>
+            <Grid item className={classes.container}>
+              <img src={lionlogo} alt="" className={classes.logo}/>
+            </Grid>
+            <Grid item className={classes.container}>
+              <img src={coralSafari} alt="" className={classes.coralWords}/>
+            </Grid>
+            <div className={classes.instructions}>
+              Please enter your name below. It will be used to create tags and will be visible to the public.
             </div>
-          </Grid>
-          <div style={{textAlign: "center"}}>
-            <Button disabled={disabled} className={classes.submitButton} onClick={handleSubmit}>Sign In!</Button>
+            <Grid item className={classes.container}>
+              <div className={classes.nameDiv}>
+                <TextField label="Your Name" name="name" id="name" variant='outlined' fullWidth className={classes.loginBox} onChange={e => handleChange(e.target.value)}/>
+              </div>
+            </Grid>
+            <div style={{textAlign: "center"}}>
+              <Button disabled={disabled} className={classes.submitButton} onClick={handleSubmit}>Sign In!</Button>
+            </div>
           </div>
-        </div>}
-      </Grid>
+        </Grid>}
     </>
   )
 }

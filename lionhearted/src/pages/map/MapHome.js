@@ -69,14 +69,12 @@ const MapPage = () => {
   //tag form variables
   const formRef = useRef(null);
   const initialValues = {
-    tagger: "",
     location: "",
     depth: "",
     numSpotted: "",
     numCaught: ""
   };
   const tagSchema = Yup.object().shape({
-    tagger: Yup.string().required("Please enter your name"),
     location: Yup.string().required("Please enter the name of the area this point is in"),
     depth: Yup.string().required("Please enter the rough water depth in this area"),
     numSpotted: Yup.string()
@@ -146,7 +144,7 @@ const MapPage = () => {
 
   const handleSelect = (search) => {
     let searchObject = api.getPlace();
-    if (searchObject.geometry) {
+    if (searchObject && searchObject.geometry) {
       let lat = (searchObject.geometry.viewport.tc.g + searchObject.geometry.viewport.tc.i) / 2;
       let lng = (searchObject.geometry.viewport.Hb.g + searchObject.geometry.viewport.Hb.i) / 2;
 
@@ -161,8 +159,14 @@ const MapPage = () => {
 
   const handleSearch = (search) => {
 
-    let position = search.replace(/\s/g, '');
-    position = position.split(",");
+    let position;
+
+    if (search.includes(",")) {
+      position = search.split(",");
+    } else {
+      position = search.split(" ");
+    }
+
     if (position.length === 2 && !isNaN(parseFloat(position[0])) && !isNaN(parseFloat(position[1]))) {
       setPosition({
         lat: parseFloat(position[0]),
@@ -236,9 +240,6 @@ const MapPage = () => {
             <InfoWindow onCloseClick={() => {setInfoWindowDisplay(null);}} className={classes.infoWindow} position={newMarker}>
               <Box pt={0.5}>
                 <TextField value={user.name} label="Your Name" name="tagger" id="tagger" variant='filled' disabled={true} fullWidth className={classes.tagInput} onChange={handleChange('tagger')} onBlur={handleBlur('tagger')}/>
-                {(errors.tagger && touched.tagger) &&
-                  <h6 className={classes.errorMessage}>{errors.tagger}</h6>
-                }
                 <TextField value={tagCoords} label="Coordinates" id="coords" variant="filled" disabled={true} fullWidth className={classes.tagInput} />
                 <TextField label="Location Name" name="location" id="location" variant='outlined' fullWidth className={classes.tagInput} onChange={handleChange('location')} onBlur={handleBlur('location')}/>
                 {(errors.location && touched.location) &&
@@ -295,7 +296,7 @@ const MapPage = () => {
           <TextField inputRef={searchRef} label="Search" id={"mapSearchBar"} variant='outlined' fullWidth onInput={refreshAutocomplete}/>
         </div>
         <Box pl={0.5} height="98%">
-          <Button onClick={handleSearch} color="primary" variant="contained" startIcon={<SearchOutlinedIcon className={classes.searchIcon}/>} className={classes.searchButton}></Button>
+          <Button onClick={handleSearchEvent} color="primary" variant="contained" startIcon={<SearchOutlinedIcon className={classes.searchIcon}/>} className={classes.searchButton}></Button>
         </Box>
       </Grid>
 

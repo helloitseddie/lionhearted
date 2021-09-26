@@ -43,6 +43,12 @@ const FAQPage = () => {
             {faqJson.q3}
           </p>
           <Box className={classes.headingBox}>
+            <h2 className={classes.subHead}>Why won't the search bar do anything?</h2>
+          </Box>
+          <p className={classes.body}><br />
+            {faqJson.q7}
+          </p>
+          <Box className={classes.headingBox}>
             <h2 className={classes.subHead}>What are the thumb up and down buttons for?</h2>
           </Box>
           <p className={classes.body}><br />

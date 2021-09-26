@@ -8,6 +8,7 @@ import CookPage from './pages/cook/CookPage';
 import FAQPage from './pages/faq/FAQPage';
 import AboutPage from './pages/about/AboutPage';
 import LoginPage from './pages/login/LoginPage';
+import HowToPage from './pages/howto/HowToPage';
 import './App.css';
 
 
@@ -29,6 +30,7 @@ const App = props => {
           <Route exact path="/cook" render={() => (user === undefined ? <Redirect to={"/login"} /> : <CookPage/>)} />
           <Route exact path="/faq" render={() => (user === undefined ? <Redirect to={"/login"} /> : <FAQPage/>)} />
           <Route exact path="/about" render={() => (user === undefined ? <Redirect to={"/login"} /> : <AboutPage/>)} />
+          <Route exact path="/howto" render={() => (user === undefined ? <Redirect to={"/login"} /> : <HowToPage/>)} />
         </BrowserRouter>
       </main>
     </>

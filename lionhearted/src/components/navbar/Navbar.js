@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link } from "react-router-dom";
 import useStyles from './style';
 import { IoIosCloseCircleOutline } from 'react-icons/io'
-import { FaBars, FaMapMarkedAlt, FaInfoCircle, FaQuestionCircle } from 'react-icons/fa';
+import { FaBars, FaMapMarkedAlt, FaInfoCircle, FaQuestionCircle, FaBook } from 'react-icons/fa';
 import { GiFishingPole, GiKnifeFork } from 'react-icons/gi';
 import { RiKnifeLine } from 'react-icons/ri';
 import { IconButton, Drawer, Hidden, Toolbar } from '@material-ui/core';
@@ -115,6 +115,14 @@ const Navbar = ({ container }) => {
                                     <FaInfoCircle className={classes.icons}/>
                                 </ListItemIcon>
                                 <ListItemText primary={"About"} className={classes.menuText}/>
+                            </ListItem>
+                          </Link>
+                          <Link to={"/howto"}>
+                            <ListItem button key="howto" onClick={() => setDisplay(!displayMenu)} className={classes.menuOptions}>
+                                <ListItemIcon>
+                                    <FaBook className={classes.icons}/>
+                                </ListItemIcon>
+                                <ListItemText primary={"How To"} className={classes.menuText}/>
                             </ListItem>
                           </Link>
                         </List>

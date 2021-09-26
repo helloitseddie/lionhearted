@@ -65,6 +65,7 @@ const MapPage = () => {
   const [thumbDownPressed, setThumbDown] = useState([]);
   const [newRenderedMarker, setNewRenderedMarker] = useState(null);
   const [displayInfoWindow, setInfoWindowDisplay] = useState(null);
+  const [markerToggle, setMarkerToggle] = useState(false);
 
   //tag form variables
   const formRef = useRef(null);
@@ -115,9 +116,13 @@ const MapPage = () => {
     if (markers === null) {
         getTags();
     }
+    if (markerToggle) {
+      setMarkerToggle(false);
+      handleTagSubmit();
+    }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [renderToggler, searchRefresh, api, google, src, hasListener, setupApi, markers]);
+  }, [renderToggler, searchRefresh, api, google, src, hasListener, setupApi, markers, markerToggle]);
 
   const handleDoubleClick = async (e) => {
     let onWater = false;
@@ -201,6 +206,9 @@ const MapPage = () => {
       let newMarkers = markers;
       newMarkers.push({ coordinates: { lat: lat, lon: lng }});
       setMarkers(newMarkers);
+    } else {
+      setMarkerToggle(true);
+      return;
     }
 
     await uploadTag(document.getElementById("tagger").value, coords, document.getElementById("location").value, document.getElementById("depth").value, document.getElementById("numSpotted").value, document.getElementById("numCaught").value);

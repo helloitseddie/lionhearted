@@ -117,7 +117,7 @@ const MapPage = () => {
     }
 
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [renderToggler, searchRefresh, api, google, src, hasListener, setupApi]);
+  }, [renderToggler, searchRefresh, api, google, src, hasListener, setupApi, markers]);
 
   const handleDoubleClick = async (e) => {
     let onWater = false;
@@ -197,10 +197,14 @@ const MapPage = () => {
     let lat = parseFloat(coords[0].replace(/\s/g, ''));
     let lng = parseFloat(coords[1].replace(/\s/g, ''));
 
-
-    setMarkers(markers.concat([{ coordinates: { lat: lat, lon: lng }}]));
+    if (markers) {
+      let newMarkers = markers;
+      newMarkers.push({ coordinates: { lat: lat, lon: lng }});
+      setMarkers(newMarkers);
+    }
 
     await uploadTag(document.getElementById("tagger").value, coords, document.getElementById("location").value, document.getElementById("depth").value, document.getElementById("numSpotted").value, document.getElementById("numCaught").value);
+
     setRender(!renderToggler);
     setNewRenderedMarker(
           <InfoWindow onCloseClick={() => {setInfoWindowDisplay(null);}} className={classes.infoWindow} position={{ lat: lat, lng: lng }}>
@@ -225,7 +229,6 @@ const MapPage = () => {
         innerRef={formRef}
         initialValues={initialValues}
         validationSchema={tagSchema}
-        onSubmit={(values) => handleTagSubmit()}
         >
           {({
           handleChange,
@@ -314,7 +317,7 @@ const MapPage = () => {
           >
             {displayInfoWindow === "newMarker" && newRenderedMarker}
 
-            {markers && setupApi && markers.map((marker,index) => (
+            {markers !== null && setupApi && markers.map((marker,index) => (
               <Marker
                 className={classes.searchMarker}
                 key={index}

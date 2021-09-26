@@ -1,7 +1,7 @@
 ![CoralSafari](coralSafariLogo.png)
 # Coral Safari
 Shell Hacks 2021 Submission <br />
-[Click Here to go to Coral Safari](https://www.coralsafari.us)
+[Click Here to go to Coral Safari](https://www.coralsafari.us) <br />
 [Click Here for the pitch video on Youtube](https://youtu.be/rzP1FeetJXU)
 ## Inspiration
 I have always been passionate about the ocean, ever since I was a little kid. Every person in my family was aa diver, so naturally I loved doing it too. Eventually, I signed up to be a Reef Ranger in high school. I didn't understand what the big issue was with lionfish, but I figured if I could put "team lead of Reef Team 6" on my college resume _and_ get to go spearfishing then I was ok with it. It was a sobering experience, though, once I realized exactly how bad the lionfish invasion was. Ever since then, this has been an extreme passion of mine. I think invasive species are one of the most important issues for us to solve for greater sustainability.
